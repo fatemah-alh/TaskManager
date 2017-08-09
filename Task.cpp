@@ -7,8 +7,20 @@
 Task::Task(const Task &t) {
     nameOfTask=t.nameOfTask;
     done=t.done;
-    dateOfTask=t.dateOfTask;//copy object date!!
+    dateOfTask=Date(t.dateOfTask);
+    // dateOfTask=t.dateOfTask;//copy object date!!
 }
-void Task::operator=(const Task &t) {
+Task& Task::operator=(const Task &t) {
 
+    nameOfTask=t.nameOfTask;
+    done=t.done;
+    dateOfTask=Date(t.dateOfTask);
+    return *this;
+}
+
+bool Task::operator==(const Task &t) {
+    if (nameOfTask==t.nameOfTask && done==t.done && dateOfTask==t.dateOfTask)
+        return true;
+    else
+        return false;
 }

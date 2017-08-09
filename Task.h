@@ -7,7 +7,6 @@
 #include <iostream>
 #include "Date.h"
 using std::string;
-
 class Task {
 private:
     string nameOfTask;
@@ -15,17 +14,13 @@ private:
     Date dateOfTask;
 public:
 
-    Task (string s="New Task", bool done= false):nameOfTask(s),done(done){
-
-    };
-
-    Task ( string s="New Task", bool done= false,int d, int m, int y):nameOfTask(s),done(done),dateOfTask(d,m,y){
-
-    };
-
+    Task (string s="New Task", bool done= false):nameOfTask(s),done(done){};
+    Task(Date d,string s="New Task", bool done= false):dateOfTask(d),nameOfTask(s),done(done){};
+    Task ( int d, int m, int y,string s="New Task", bool done= false):dateOfTask(d,m,y),nameOfTask(s),done(done){};
     Task(const Task& t);
-    //~Task();// delete Date obj
-    void operator =(const Task& t);
+    ~Task(){};// delete Date obj??
+    Task& operator =(const Task& t);
+    bool operator==(const Task&t);
 
     const string &getNameOfTask() const {
         return nameOfTask;
