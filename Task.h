@@ -6,19 +6,23 @@
 #define TASKMANGER_TASK_H
 #include <iostream>
 #include "Date.h"
+#include "Color.h"
+
 using std::string;
 class Task {
 private:
     string nameOfTask;
     bool done;
     Date dateOfTask;
+    Color colorOfTask;
 public:
 
-    Task (string s="New Task", bool done= false):nameOfTask(s),done(done){};
-    Task(Date d,string s="New Task", bool done= false):dateOfTask(d),nameOfTask(s),done(done){};
-    Task ( int d, int m, int y,string s="New Task", bool done= false):dateOfTask(d,m,y),nameOfTask(s),done(done){};
+    explicit Task (string s="New Task",Color c= Color ::rose, bool done= false):nameOfTask(s),colorOfTask(c),done(done){};
+    explicit Task(Date d,string s="New Task",Color c= Color ::rose, bool done= false):dateOfTask(d),nameOfTask(s),colorOfTask(c),done(done){};
+    Task ( int d, int m, int y,string s="New Task",Color c= Color ::rose, bool done= false):dateOfTask(d,m,y),nameOfTask(s),colorOfTask(c),done(done){};
     Task(const Task& t);
-    ~Task(){};// delete Date obj??
+
+    virtual  ~Task(){};// delete Date obj??//virtual??!!
     Task& operator =(const Task& t);
     bool operator==(const Task&t);
 
@@ -30,11 +34,12 @@ public:
         Task::nameOfTask = nameOfTask;
     }
 
-    const Date &getDateOfTask() const {//
+    const Date &getDateOfTask() const {
         return dateOfTask;
     }
 
     void setDateOfTask(const Date &dateOfTask) {//
+
         Task::dateOfTask = dateOfTask;
     }
 
@@ -45,8 +50,14 @@ public:
     void setDone(bool done) {
         Task::done = done;
     }
+    Color getColorOfTask() const {
+        return colorOfTask;
+    }
 
-    //color;
+    void setColorOfTask(Color colorOfTask) {
+        Task::colorOfTask = colorOfTask;
+    }
+
 
 
 };

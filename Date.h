@@ -6,6 +6,7 @@
 #define TASKMANGER_DATE_H
 #include <ctime>
 
+
 class Date {
 private:
     int day;
@@ -20,32 +21,27 @@ public:
         month=1 + ltm->tm_mon;
         year=1900 + ltm->tm_year;
     }
-    Date(int d, int m, int y)// how to know number of day in months!
-    {
-        day=d;
+    Date(int d, int m, int y) //throw(std::invalid_argument)
+    {   day=d;
         month=m;
         year=y;
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        if (day >31 || d<0)
-            day=ltm->tm_mday;
-        if(month>12 || month<0)
-            month=1 + ltm->tm_mon;
+        convertToValidDate();
     };
 
 
-    //~Date(); //if there is composition, need virtual D'otr?||
-
+    ~Date(){}; //if there is composition, need virtual D'otr?||
+    void convertToValidDate();
+    bool isLeap(int y);
+    int numOfDayInMonth(int m,int y);
     bool operator >(const Date& d);
     bool operator<(const Date &d);
     bool operator ==(const Date& d);
-    //   bool isDateMinOfToday();// maby not need!
-
     int getDay() const {
         return day;
     }
     void setDay(int day) {
         Date::day = day;
+        convertToValidDate();
     }
 
     int getMonth() const {
@@ -54,6 +50,7 @@ public:
 
     void setMonth(int month) {
         Date::month = month;
+        convertToValidDate();
     }
 
     int getYear() const {
