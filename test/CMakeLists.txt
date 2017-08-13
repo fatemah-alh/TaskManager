@@ -1,14 +1,15 @@
 
+
 add_subdirectory(./lib/googletest)
 
-set(gtest_SOURCE_DIR, ./lib/googletest/)
+include_directories(./lib/googletest/include)
 
-INCLUDE_DIRECTORIES(${gtest_SOURCE_DIR}/include ${COMMON_INCLUDES})
+include_directories(./lib/googlemock/include)
 
-set(SOURCE_TEST_FILES RunAllTests.cpp DateTest.cpp)
-add_executable(RunAllTests.cpp ${SOURCE_TEST_FILES})
+set(SOURCE_TEST_FILES RunAllTests.cpp DateTest.cpp TaskTest.cpp)
+add_executable(RunAllTests ${SOURCE_TEST_FILES})
 
-target_link_libraries(RunAllTests.cpp gtest gtest_main core)
+target_link_libraries(RunAllTests gtest gtest_main core)
 
 
 
