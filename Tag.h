@@ -5,6 +5,6 @@
 #ifndef TASKMANGER_TAG_H
 #define TASKMANGER_TAG_H
 enum class Tag{
-    family,studying,work,life,hobey,friends,social,volenteer
+    life,family,friends,social,studying,work,hobey,volunteer
 };
 #endif //TASKMANGER_TAG_H

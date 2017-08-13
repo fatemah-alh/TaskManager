@@ -7,6 +7,7 @@
 #include <iostream>
 #include "Date.h"
 #include "Color.h"
+#include "Tag.h"
 
 using std::string;
 class Task {
@@ -15,14 +16,31 @@ private:
     bool done;
     Date dateOfTask;
     Color colorOfTask;
+    Tag tagTask;//in future possible be class category
+
 public:
 
-    explicit Task (string s="New Task",Color c= Color ::rose, bool done= false):nameOfTask(s),colorOfTask(c),done(done){};
-    explicit Task(Date d,string s="New Task",Color c= Color ::rose, bool done= false):dateOfTask(d),nameOfTask(s),colorOfTask(c),done(done){};
-    Task ( int d, int m, int y,string s="New Task",Color c= Color ::rose, bool done= false):dateOfTask(d,m,y),nameOfTask(s),colorOfTask(c),done(done){};
+    explicit Task (string s="New Task"):nameOfTask(s){
+        // Color c= Color ::rose,Tag tag=Tag::life,bool done= false
+        colorOfTask= Color ::rose;
+        tagTask=Tag::life;
+        done= false;
+    };
+    explicit Task(Date d,string s="New Task"):dateOfTask(d),nameOfTask(s){
+        colorOfTask= Color ::rose;
+        tagTask=Tag::life;
+        done= false;
+
+    };
+    Task ( int d, int m, int y,string s="New Task"):dateOfTask(d,m,y),nameOfTask(s){
+        colorOfTask= Color ::rose;
+        tagTask=Tag::life;
+        done= false;
+    };
+
     Task(const Task& t);
 
-    virtual  ~Task(){};// delete Date obj??//virtual??!!
+    //virtual  ~Task(){};// delete Date obj??//virtual??!!
     Task& operator =(const Task& t);
     bool operator==(const Task&t);
 
@@ -58,6 +76,13 @@ public:
         Task::colorOfTask = colorOfTask;
     }
 
+    Tag getTagTask() const {
+        return tagTask;
+    }
+
+    void setTagTask(Tag tagTask) {
+        Task::tagTask = tagTask;
+    }
 
 
 };

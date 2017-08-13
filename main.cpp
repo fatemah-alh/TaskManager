@@ -6,10 +6,10 @@
 int main() {
     Date d(99,15,1993);
     Date f(15,9,2017);
-    Task t("Call mamma",Color ::yellow, true);
+    Task t("Call mamma");
     Task t1(5,9,2017,"consenga il progetto");
     Task t2(f,"iscrivere nel borsa");
-    Task t3(27,6,2017,"fatto esame algoritmi",Color ::red, true);
+    Task t3(27,6,2017,"fatto esame algoritmi");
     TaskList todo;
     todo.addTask(t1);
     todo.addTask(t2);
