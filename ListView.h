@@ -6,27 +6,31 @@
 #define TASKMANGER_LISTVIEW_H
 
 #include "TaskList.h"
-/*
+#include <list>
+
 class ListView {
 private:
-    TaskList taskList;
+   //TaskList taskList;
+   std::list<Task> list;
 public:
     ListView(TaskList taskList1){
-        taskList=taskList1;
+
+       list=taskList1.getTaskList();
     }
     void printList();// print name of task, and date in one list
-    void printListByTag();
-    void printListByColor();
-    void printListByDate();
-    void printListByDay();
-    void PrintListByMonth();
-    void PrintListByYear();
-    //ByMontheAndYear, ByDayAndMonth
 
+    void printListByTag(Tag tag);
+
+    void printListByColor(Color color);
+    void printListByDate(Date date);
+    void printListByDay(int d);
+    void printListByMonth(int m);
+    void printListByYear(int y);
+
+    //ByMontheAndYear, ByDayAndMonth
 
 
 
 };
 
-*/
 #endif //TASKMANGER_LISTVIEW_H

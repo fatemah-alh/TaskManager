@@ -35,7 +35,7 @@ public:
     int numOfDayInMonth(int m,int y);
     bool operator >(const Date& d);
     bool operator<(const Date &d);
-    bool operator ==(const Date& d);
+    bool operator ==(const Date& d)const ;
     int getDay() const {
         return day;
     }

@@ -40,9 +40,9 @@ public:
 
     Task(const Task& t);
 
-    //virtual  ~Task(){};// delete Date obj??//virtual??!!
+    virtual  ~Task()= default;// delete Date obj??//virtual??!!
     Task& operator =(const Task& t);
-    bool operator==(const Task&t);
+    bool operator==(const Task&t)const ;
 
     const string &getNameOfTask() const {
         return nameOfTask;

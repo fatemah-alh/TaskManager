@@ -31,7 +31,7 @@ bool Date::operator<(const Date &d) {
     return false;
 }
 
-bool Date::operator==(const Date& d) {
+bool Date::operator==(const Date& d) const {
     if(d.year==year && d.month==month && d.day==day)
         return true;
     else

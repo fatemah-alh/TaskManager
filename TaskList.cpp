@@ -4,34 +4,42 @@
 
 #include "TaskList.h"
 
+
 void TaskList::addTask(Task& t) {
-    taskList.push_back(t);
-
+    taskList.push_front(t);
 }
-bool TaskList::removeTask(Task &t) {// it's possible throw exception that the the task dos'nt exist!!
-    for (auto it = taskList.begin();  it != taskList.end(); ++ it) {
-        if(*it==t) {
-            taskList.remove(*it);
-            return true;
-        }
+
+void TaskList::removeTask(Task &t) {// it's possible throw exception that the the task dos'nt exist!!
+    bool  found= false;
+    auto it = taskList.begin();
+    while (it != taskList.end() && !found)
+    {
+        if(*it==t)
+            found= true;
+        else
+            it++;
     }
+    if(found)
+            taskList.remove(*it);
+    else
+        std::cout<<"The task is not in the list";
     //else the task not found
-    return false;
+
 
 }
+void TaskList::moveTask(TaskList &l2, Task &t) {//
+    l2.addTask(t);
+    removeTask(t);
+}
+// when empty lis notif list view for reprint the list..
 void TaskList:: emptyList(){
     if(!taskList.empty()){
-        for ( auto it=taskList.begin(); it !=taskList.end(); ++it) {
 
-            taskList.erase(it);
-            delete &it;
-            //  taskList.remove(*it);
-        }
-        taskList.clear();
+       taskList.clear();
     }
 }
 
-TaskList TaskList::searchTasks(Date d) {
+TaskList TaskList::searchTasksByDate(Date d){
     TaskList l;
     for (auto it = taskList.begin();  it !=taskList.end() ; ++ it) {
         Date date;
@@ -41,9 +49,12 @@ TaskList TaskList::searchTasks(Date d) {
 
     }
    if (l.taskList.empty())
-       std::cout<<"there is no tasks in this day";
+      // throw std::invalid_argument("There is no tasks in this day");
+       std::cout<<"There is no tasks in this day";
+
     return l;
 
 }
+
 
 

@@ -22,7 +22,7 @@ Task& Task::operator=(const Task &t) {
     return *this;
 }
 
-bool Task::operator==(const Task &t) {
+bool Task::operator==(const Task &t) const {
     if (nameOfTask==t.nameOfTask && done==t.done && dateOfTask==t.dateOfTask
         && colorOfTask==t.colorOfTask && tagTask==t.tagTask)
         return true;
