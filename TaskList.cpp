@@ -27,9 +27,47 @@ void TaskList::removeTask(Task &t) {// it's possible throw exception that the th
 
 
 }
+
+void TaskList::removeTaskByName(string s) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==s)
+            found= true;
+        else
+            it++;
+    }
+    if(found)
+        taskList.remove(*it);
+    else
+        std::cout<<"The task is not in the list";
+
+}
 void TaskList::moveTask(TaskList &l2, Task &t) {//
     l2.addTask(t);
     removeTask(t);
+}
+
+void TaskList::moveTaskByName(TaskList &l2, string s) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==s)
+            found= true;
+        else
+            it++;
+    }
+    if(found){
+        l2.addTask(*it);//problem!
+        removeTask(*it);
+
+    }
+
+
 }
 // when empty lis notif list view for reprint the list..
 void TaskList:: emptyList(){
@@ -38,7 +76,6 @@ void TaskList:: emptyList(){
        taskList.clear();
     }
 }
-
 TaskList TaskList::searchTasksByDate(Date d){
     TaskList l;
     for (auto it = taskList.begin();  it !=taskList.end() ; ++ it) {

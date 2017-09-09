@@ -18,15 +18,7 @@ public:
     TaskList()= default;// how to initializer list//
     ~TaskList(){
 
-        for ( auto it=taskList.begin(); it !=taskList.end(); ++it) {
-
-           // taskList.erase(it);
-          delete &it;
-          //  taskList.remove(*it);
-        }
-       // taskList.clear();
-
-    };//delete objects Task
+    };
 
     void addTask(Task& t);
 
@@ -36,11 +28,13 @@ public:
     // when move task form to-do to other list, use earse element!, it's pointed!
 
     // void printList();// print namoe of taske in list if there is list
+    void removeTaskByName(string s);
     void emptyList();
     TaskList searchTasksByDate(Date d);//throw(std::invalid_argument);// by day,month,year, by name
 
     //sugg:: board of Task list, possible creare in class board list of Tasklist!
-    void moveTask(TaskList& l2,Task& t);
+    void moveTask(TaskList&l2,Task& t);
+    void moveTaskByName(TaskList& l2,string s);
 
     int getSizeList() const {
         return taskList.size();

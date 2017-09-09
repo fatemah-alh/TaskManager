@@ -22,18 +22,21 @@ public:
 
     explicit Task (string s="New Task"):nameOfTask(s){
         // Color c= Color ::rose,Tag tag=Tag::life,bool done= false
-        colorOfTask= Color ::rose;
+        colorOfTask= Color ::Pink;
         tagTask=Tag::life;
         done= false;
     };
     explicit Task(Date d,string s="New Task"):dateOfTask(d),nameOfTask(s){
-        colorOfTask= Color ::rose;
+        colorOfTask= Color ::Pink;
         tagTask=Tag::life;
         done= false;
 
+
     };
+    Task(Date d,string s="New Task",Color color=Color ::Pink, Tag tag=Tag::life, bool done=false):dateOfTask(d),nameOfTask(s),colorOfTask(color),tagTask(tag),done(done){};
+
     Task ( int d, int m, int y,string s="New Task"):dateOfTask(d,m,y),nameOfTask(s){
-        colorOfTask= Color ::rose;
+        colorOfTask= Color ::Pink;
         tagTask=Tag::life;
         done= false;
     };

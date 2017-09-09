@@ -1,4 +1,44 @@
-#include <iostream>
+
+
+
+//#include "Board.h"
+//#include "GUIBoard.h"
+#include "main.h"
+
+
+
+IMPLEMENT_APP(MyApp);
+
+bool MyApp::OnInit() {
+    toDo=new TaskList;
+    done= new TaskList;
+    ignored=new TaskList;
+
+    GUITaskManager*guiTaskManager=new GUITaskManager(NULL);
+    Control* control=new Control(toDo,done,ignored);
+    guiTaskManager ->setControl(control);
+
+
+   // Observer *o=new Observer(guiTaskManager);
+ //   GUITask::setO(o);
+
+    guiTaskManager->Show(true);
+    return true;
+}
+
+
+int MyApp::OnExit() {
+    delete toDo;
+    delete done;
+    delete ignored;
+
+}
+
+
+
+
+/*
+ * #include <iostream>
 
 #include "Date.h"
 #include "Task.h"
@@ -59,6 +99,7 @@ int main() {
     f=t.getDateOfTask();
     day=t.getDateOfTask().getDay();
     std::cout << day << std::endl;
-    */
+
     return 0;
 }
+  */
