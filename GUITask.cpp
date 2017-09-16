@@ -62,22 +62,12 @@ GUITask::GUITask( wxWindow* parent, wxWindowID id, const wxString& title, const 
     chooseTag->SetSelection( 0 );
     fgSizer3->Add( chooseTag, 0, wxALL, 5 );
 
-    checkDone = new wxCheckBox( this, wxID_ANY, wxT("Done"), wxDefaultPosition, wxDefaultSize, 0 );
-    fgSizer3->Add( checkDone, 0, wxALL, 5 );
-
-    space = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-    space->Wrap( -1 );
-    fgSizer3->Add( space, 0, wxALL, 5 );
-
     ok = new wxButton( this, wxID_OK, wxT("OK"), wxDefaultPosition, wxDefaultSize, 0 );
     fgSizer3->Add( ok, 0, wxALL, 5 );
 
     cancel = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     fgSizer3->Add( cancel, 0, wxALL, 5 );
-/*
-    datePicker = new wxDatePickerCtrl( this, wxID_ANY, wxDefaultDateTime, wxDefaultPosition, wxDefaultSize, wxDP_DEFAULT );
-    fgSizer3->Add( datePicker, 0, wxALL, 5 );
-*/
+
 
     this->SetSizer( fgSizer3 );
     this->Layout();
@@ -90,7 +80,7 @@ GUITask::GUITask( wxWindow* parent, wxWindowID id, const wxString& title, const 
     Date->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUITask::setDate ), NULL, this );
     chooseColor->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( GUITask::setColor ), NULL, this );
     chooseTag->Connect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( GUITask::setTag ), NULL, this );
-    checkDone->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( GUITask::setDone ), NULL, this );
+    //checkDone->Connect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( GUITask::setDone ), NULL, this );
 
 }
 
@@ -102,7 +92,7 @@ GUITask::~GUITask()
     Date->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( GUITask::setDate ), NULL, this );
     chooseColor->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( GUITask::setColor ), NULL, this );
     chooseTag->Disconnect( wxEVT_COMMAND_CHOICE_SELECTED, wxCommandEventHandler( GUITask::setTag ), NULL, this );
-    checkDone->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( GUITask::setDone ), NULL, this );
+   // checkDone->Disconnect( wxEVT_COMMAND_CHECKBOX_CLICKED, wxCommandEventHandler( GUITask::setDone ), NULL, this );
 
 
 }
@@ -131,9 +121,7 @@ void  GUITask::setTag(wxCommandEvent &event) {
     setGuiTag(chooseTag->GetStringSelection());
 
 }
-void  GUITask::setDone(wxCommandEvent &event) {
-    setGuiDone(checkDone->IsChecked());
-}
+
 
 void GUITask::setDate(wxCommandEvent &event) {
     GUIDate guiDate1(this);

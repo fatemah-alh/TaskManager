@@ -25,7 +25,7 @@ protected:
     wxButton* cancelDate;
     int dayTask;
     int monthTask;
-     int yearTask;
+    int yearTask;
 
 
 public:

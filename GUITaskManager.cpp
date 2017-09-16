@@ -70,15 +70,39 @@ GUITaskManager::GUITaskManager( wxWindow* parent, wxWindowID id, const wxString&
     search = new wxMenu();
     wxMenuItem* searchByDate;
     searchByDate = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by date") ) , wxEmptyString, wxITEM_NORMAL );
-    search->Append( searchByDate );
+
 
     wxMenuItem* searchByName;
     searchByName = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by name") ) , wxEmptyString, wxITEM_NORMAL );
-    search->Append( searchByName );
+
 
     wxMenuItem* searchByDay;
-    searchByDay = new wxMenuItem( search, wxID_ANY, wxString( wxT("MyMenuItem") ) , wxEmptyString, wxITEM_NORMAL );
+    searchByDay = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by day") ) , wxEmptyString, wxITEM_NORMAL );
+
+    wxMenuItem* searchByMonth;
+    searchByMonth = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by month") ) , wxEmptyString, wxITEM_NORMAL );
+
+    wxMenuItem* searchByYear;
+    searchByYear = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by year") ) , wxEmptyString, wxITEM_NORMAL );
+
+
+    wxMenuItem* todayList;
+    todayList = new wxMenuItem( search, wxID_ANY, wxString( wxT("Today List") ) , wxEmptyString, wxITEM_NORMAL );
+
+
+    wxMenuItem* searchByTag;
+    searchByTag = new wxMenuItem( search, wxID_ANY, wxString( wxT("search by tag") ) , wxEmptyString, wxITEM_NORMAL );
+
+
+
+    search->Append(todayList);
+    search->Append( searchByName );
+    search->Append( searchByDate );
+    search->Append( searchByTag );
     search->Append( searchByDay );
+    search->Append( searchByMonth );
+    search->Append( searchByYear );
+
 
     m_menubar1->Append( search, wxT("search") );
 
@@ -106,14 +130,16 @@ GUITaskManager::GUITaskManager( wxWindow* parent, wxWindowID id, const wxString&
     this->Connect( moveTask->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::moveTask ) );
     this->Connect( emptyList->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::emptyList ) );
     this->Connect( calculatePercent->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::calculatePercent ) );
-    this->Connect( searchByName->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByName ) );
-/*
+    this->Connect(todayList->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GUITaskManager::getTodayList));
     this->Connect( searchByDate->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByDate ) );
-
+    this->Connect( searchByName->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByName ) );
     this->Connect( searchByDay->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByDay ) );
+    this->Connect( searchByTag->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByTag ) );
+    this->Connect( searchByMonth->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByMonth ) );
+    this->Connect( searchByYear->GetId(), wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByYear ) );
 
 
-*/}
+}
 
 GUITaskManager::~GUITaskManager()
 {
@@ -130,14 +156,15 @@ GUITaskManager::~GUITaskManager()
     this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::moveTask ) );
     this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::emptyList ) );
     this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::calculatePercent ) );
-    this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::calculatePercent ) );
+    this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByDate ) );
     this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByName ) );
-
-    /* this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByDate ) );
-
     this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::searchByDay ) );
+    this->Disconnect( wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler( GUITaskManager::calculatePercent ) );
+    this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GUITaskManager::getTodayList));
+    this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GUITaskManager::searchByTag));
+    this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GUITaskManager::searchByMonth));
+    this->Disconnect(wxID_ANY, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(GUITaskManager::searchByYear));
 
-*/
 }
 
 
@@ -152,50 +179,27 @@ void GUITaskManager::addTask(wxCommandEvent &event) {
         wxString taskName = guiTask.getGuiNameTask();
         wxString taskColor=guiTask.getGuiColor();
         wxString taskTag=guiTask.getGuiTag();
-        bool taskDone=guiTask.isGuiDone();
+if(taskName!=wxEmptyString){
 
         if (taskList == "ToDo") {
-            if(!taskDone)
                toDoList->Append(taskName);
-            else
-            {   wxString s = wxGetTextFromUser("Task is checked with done! "
-                 "If you want add it to Done list enter 'y', "
-                   "if you want add to ToDo enter 'n',"
-                 "otherwise enter task will not be inserted\"", wxEmptyString);
-                //wxMessageBox("Task is checked with done! "
-                //       "If you want add it to Done list enter 'y' otherwise ")
-                if(s=="y"){
-                doneList->Append(taskName);
-                taskList="Done";}
-                if(s=='n'){
-                    taskDone= false;
-                    toDoList->Append(taskName);
-                }
-            }
         } else if (taskList == "Done") {
             doneList->Append(taskName);
-            if(!taskDone){
-
-                taskDone=true;
-            }
 
         } else {
             taskList="Ignored";
             ignoredList->Append(taskName);
-            if(taskDone){
-                taskDone=false;
-            }
-
         }
         if(guiTask.isSetted_()){
             int day=guiTask.getDayTask();
             int month=guiTask.getMonthTask();
             int year=guiTask.getYearTask();
-            control->addTask(taskList,taskName,taskColor,taskTag,taskDone,day,month,year);
+           control->addTask(taskList,taskName,taskColor,taskTag,day,month,year);
         } else{
 
-        control->addTask(taskList,taskName,taskColor,taskTag,taskDone);}
-    }
+        control->addTask(taskList,taskName,taskColor,taskTag);}
+    }else
+    wxMessageBox("You did not enter name of task!");}
 
 }
 
@@ -251,45 +255,6 @@ void GUITaskManager::removeTask(wxCommandEvent &event) {
 
 
     }
-
-
-    /*
-      // for remove selected task1
-    wxListBox* selectedList;
-    wxString taskList;
-    bool select_= false;
-
-
-    if(toDoList->GetStringSelection()!=wxT("")){
-        selectedList=toDoList;
-        taskList="ToDo";
-        select_=true;
-
-    } else if(doneList->GetStringSelection()!=wxT("")){
-        selectedList=doneList;
-        select_=true;
-        taskList="Done";
-
-    }else if(ignoredList->GetStringSelection()!=wxT(""))
-    {
-        selectedList=ignoredList;
-        select_=true;
-        taskList="Ignored";
-    } else
-        wxMessageBox("Please select Task");
-
-    if(select_) {
-        wxString s = selectedList->GetStringSelection();
-        int pos = selectedList->GetSelection();
-        selectedList->Delete(pos);
-        control->removeTask(taskList,s);
-        if(pos>1){
-            selectedList->Deselect(pos-1);
-        }
-    }
-
-
-*/
 
 }
 void GUITaskManager::emptyList(wxCommandEvent &event) {
@@ -412,10 +377,10 @@ void GUITaskManager::calculatePercent(wxCommandEvent &event) {
     int doneSize=doneList->GetCount();
     int ignoredSize=ignoredList->GetCount();
     int total=toDoSize+doneSize+ignoredSize;
-if(total!=0) {
-    int toDoPercent = toDoSize * 100 / total;
-    int donePercent = doneSize * 100 / total;
-    int ignoredPercent = ignoredSize * 100 / total;
+    if(total!=0) {
+        int toDoPercent = toDoSize * 100 / total;
+        int donePercent = doneSize * 100 / total;
+        int ignoredPercent = ignoredSize * 100 / total;
 /*
     control->calculatePercent();
     toDoPercent=control->getToDoPercent();
@@ -423,26 +388,26 @@ if(total!=0) {
     ignoredPercent=control->getIgnoredPercent();
 */
 
-    wxString s1 = wxString::Format(wxT("You have %d percent tasks for do it!\n\n"), toDoPercent);
-    wxString s2 = wxString::Format(wxT("You achieved %d percent from tasks!\n\n"), donePercent);
-    wxString s3 = wxString::Format(wxT("You ignored %d percent from tasks!\n\n"), ignoredPercent);
-    wxString msg;
-    wxString evaluate;
+        wxString s1 = wxString::Format(wxT("You have %d percent tasks for do it!\n\n"), toDoPercent);
+        wxString s2 = wxString::Format(wxT("You achieved %d percent from tasks!\n\n"), donePercent);
+        wxString s3 = wxString::Format(wxT("You ignored %d percent from tasks!\n\n"), ignoredPercent);
+        wxString msg;
+        wxString evaluate;
 
-    msg.Append(s1);
-    msg.Append(s2);
-    msg.Append(s3);
-    if (toDoPercent > 80) {
-        evaluate = "You have to do more!";
-    } else if (toDoPercent == 0) {
-        evaluate = "Relax you have not to do any thing!";
-    }
-    msg.Append(evaluate);
+        msg.Append(s1);
+        msg.Append(s2);
+        msg.Append(s3);
+        if (toDoPercent > 80) {
+            evaluate = "You have to do more!";
+        } else if (toDoPercent == 0) {
+            evaluate = "Relax you have not to do any thing!";
+        }
+        msg.Append(evaluate);
 
 
-    wxMessageBox(msg, wxT("Percent"), wxCENTRE, this);
-} else
-    wxMessageBox("Lists are empties!");
+        wxMessageBox(msg, wxT("Percent"), wxCENTRE, this);
+    } else
+        wxMessageBox("Lists are empties!");
 }
 
 void GUITaskManager::editTask(wxCommandEvent &event) {
@@ -474,8 +439,9 @@ void GUITaskManager::editTask(wxCommandEvent &event) {
         wxString taskName = guiTask.getGuiNameTask();
         wxString taskColor=guiTask.getGuiColor();
         wxString taskTag=guiTask.getGuiTag();
+
         //wxString day
-        bool taskDone=guiTask.isGuiDone();
+
         wxListBox* changedList;
         bool changedList_=false;
         bool move_=false;
@@ -518,22 +484,28 @@ void GUITaskManager::editTask(wxCommandEvent &event) {
             }
             if(found) {
                 taskListOrigin->SetString(i,taskName);
-              //  control->changeNameOfTask(taskListOrigin_, taskNameClicked,taskName);
+                control->changeNameOfTask(taskListOrigin_, taskNameClicked,taskName);
             }
         }
           //check color
         if(taskColor!=wxEmptyString){
 
-           // control->changeColorOfTask(taskListOrigin_,taskName,taskColor);
+           control->changeColorOfTask(taskListOrigin_,taskName,taskColor);
             }
         //check Tag
         if(taskTag!=wxEmptyString){
-        //    control->changeTagOfTask(taskListOrigin_,taskName,taskTag);
+           control->changeTagOfTask(taskListOrigin_,taskName,taskTag);
 
         }
 
         //check date
-       // if()
+        if(guiTask.isSetted_()) {
+            int day = guiTask.getDayTask();
+            int month = guiTask.getMonthTask();
+            int year = guiTask.getYearTask();
+            control->changeDateOfTask(taskList,taskName,day,month,year);
+
+        }
         if(move_){
             bool found=false;
 
@@ -552,31 +524,111 @@ void GUITaskManager::editTask(wxCommandEvent &event) {
 
             } else
                 wxMessageBox("Fatal error");
+        } }}
+
+void GUITaskManager::searchByDate(wxCommandEvent &event) {
+    GUIDate guiDate1(this);
+    if(guiDate1.ShowModal()==wxID_OK)
+    {
+        guiDate1.convertToValidDate();
+        int day=guiDate1.getDayTask();
+        int month=guiDate1.getMonthTask();
+        int year=guiDate1.getYearTask();
+        control->searchByDate(day,month,year);
+    }
+}
+
+void GUITaskManager::getTodayList(wxCommandEvent &event) {
+    Date today;
+    control->searchByDate(today.getDay(),today.getMonth(),today.getYear());
+}
+void GUITaskManager::searchByDay(wxCommandEvent &event) {
+    int dayTask;
+
+    wxTextEntryDialog dlg(this,"Enter day","search by date");
+    dlg.SetTextValidator(wxFILTER_DIGITS);
+    dlg.SetMaxLength(2);
+    dlg.SetValue("1");
+
+
+    if ( dlg.ShowModal() == wxID_OK ){
+        dayTask= wxAtoi(dlg.GetValue());
+        if(dayTask>31 || dayTask<1){
+            wxMessageBox("Invalid day! we will set it at 1!");
+            dayTask=1;
         }
-            }
+
+        control->searchByDay(dayTask);
+
     }
 
+    //control->searchByDay(day);
+}
+void GUITaskManager::searchByMonth(wxCommandEvent &event)  {
+    int monthTask;
+
+    wxTextEntryDialog dlg(this,"Enter Month","search by month");
+    dlg.SetTextValidator(wxFILTER_DIGITS);
+    dlg.SetMaxLength(2);
+    dlg.SetValue("1");
+
+
+    if ( dlg.ShowModal() == wxID_OK ){
+       monthTask= wxAtoi(dlg.GetValue());
+        if(monthTask>12 || monthTask<1){
+            wxMessageBox("Invalid month! we will set it at 1!");
+            monthTask=1;
+        }
+
+        control->searchByMonth(monthTask);
+
+    }
+
+    //control->searchByDay(day);
+}
+
+void GUITaskManager::searchByYear(wxCommandEvent &event) {
+    int yearTask;
+
+    wxTextEntryDialog dlg(this,"Enter year","search by year");
+    dlg.SetTextValidator(wxFILTER_DIGITS);
+    dlg.SetMaxLength(4);
+    dlg.SetValue("2017");
+
+
+    if ( dlg.ShowModal() == wxID_OK ){
+        yearTask= wxAtoi(dlg.GetValue());
+        if(yearTask>2090 || yearTask<2000){
+            wxMessageBox("Invalid day! we will set it at 2017!");
+            yearTask=2017;
+        }
+
+        control->searchByYear(yearTask);
+
+    }
+
+    //control->searchByDay(day);
+}
+
 void GUITaskManager::searchByName(wxCommandEvent &event) {
-
-
-    wxTextEntryDialog search(this, "Enter name of task:");
-    wxListBox *listBox;
-    wxString taskName;
-    bool select_ = false;
-
-    if (search.ShowModal() == wxID_OK) {
-        taskName = search.GetValue();
-
-
+    wxTextEntryDialog dlg(this,"Enter name of task","search by name");
+    if(dlg.ShowModal()==wxID_OK){
+        wxString taskName=dlg.GetValue();
+        control->searchByName(taskName);
     }
 
 }
-/*
- void GUITaskManager::searchByDate(){
 
- }
+void GUITaskManager::searchByTag(wxCommandEvent &event) {
+    wxTextEntryDialog dlg(this,"Enter one of this Tag:life, family,friends,social,"
+            "studying, work, hobey, volunteer","search by tag");
+    if(dlg.ShowModal()==wxID_OK){
+        wxString taskTag=dlg.GetValue();
 
- */
+        control->searchByTag(taskTag);
+    }
+
+}
 
 
 

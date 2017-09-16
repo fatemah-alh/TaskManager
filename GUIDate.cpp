@@ -6,9 +6,16 @@
 
 GUIDate::GUIDate( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
 {
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+
+    dayTask= ltm->tm_mday;
+    monthTask=1 + ltm->tm_mon;
+    yearTask=1900 + ltm->tm_year;
+
     wxIntegerValidator<int>
             val(&dayTask, wxNUM_VAL_THOUSANDS_SEPARATOR);
-    val.SetRange(0,31);
+    val.SetRange(1,31);
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
 
@@ -57,10 +64,10 @@ GUIDate::GUIDate( wxWindow* parent, wxWindowID id, const wxString& title, const 
 
     wxIntegerValidator< int>
             valY(&yearTask,  wxNUM_VAL_THOUSANDS_SEPARATOR );
-    //valY.SetRange(2017,2050);
+    //.SetRange(17,50);
 
 
-    year = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 ,valY);
+    year = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 #ifdef __WXGTK__
     if ( !year->HasFlag( wxTE_MULTILINE ) )
 	{
@@ -70,6 +77,8 @@ GUIDate::GUIDate( wxWindow* parent, wxWindowID id, const wxString& title, const 
     year->SetMaxLength( 4 );
 #endif
     fgSizer4->Add( year, 0, wxALL, 5 );
+    year->SetValidator(valY);
+
 
     okDate = new wxButton( this, wxID_OK, wxT("Ok"), wxDefaultPosition, wxDefaultSize, 0 );
     fgSizer4->Add( okDate, 0, wxALL, 5 );
@@ -110,12 +119,16 @@ int GUIDate::numOfDayInMonth(int m,int y) {
 }
 
 void GUIDate::convertToValidDate() {
+    if(yearTask<2000 || yearTask> 2090) {
+        wxMessageBox("Invalid year, we will set it at 2017!");
+        yearTask=2017;
+    }
 
     int n=numOfDayInMonth(monthTask,yearTask);//
 
     if (dayTask >n ){
         setDayTask(n);
-        wxString msg = wxString::Format(wxT("wrong day!Day will be setted to %d"), dayTask);
-        wxMessageBox(msg ,wxT("a message"), wxCENTRE , this);
+        wxString msg = wxString::Format(wxT("Invalid day!Day will be setted to %d"), dayTask);
+        wxMessageBox(msg ,wxT("Invalid day"), wxCENTRE , this);
     }
 }

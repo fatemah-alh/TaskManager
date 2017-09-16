@@ -62,9 +62,11 @@ void TaskList::moveTaskByName(TaskList &l2, string s) {
             it++;
     }
     if(found){
+        std::cout<<"size of 'list from' is"<<getSizeList()<<l2.getSizeList()<<std::endl;
         l2.addTask(*it);//problem!
         removeTask(*it);
-
+        std::cout<<"The task"<<s<<"is Moved.\n size of 'list from' is"<<getSizeList()<<
+                "\n size of to list is "<<l2.getSizeList();
     }
 
 
@@ -85,13 +87,82 @@ TaskList TaskList::searchTasksByDate(Date d){
             l.taskList.push_back(*it);
 
     }
-   if (l.taskList.empty())
+  // if (l.taskList.empty())
       // throw std::invalid_argument("There is no tasks in this day");
-       std::cout<<"There is no tasks in this day";
-
+     //  std::cout<<"There is no tasks in this day";
     return l;
 
 }
+void TaskList::changeNameOfTask(string taskName1, string taskName2) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==taskName1)
+            found= true;
+        else
+            it++;
+    }
+    if(found){
+        it->setNameOfTask(taskName2);
+    }
+    else
+        std::cout<<"wrong name of task!";
+
+}
+void TaskList::changeColorOfTask(string taskName, Color taskColor) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==taskName)
+            found= true;
+        else
+            it++;
+    }
+    if(found){
+        it->setColorOfTask(taskColor);
+    } else
+        std::cout<<"There is no such task in this list!";
+
+}
+
+void TaskList::changeTagOfTask(string taskName, Tag taskTag) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==taskName)
+            found= true;
+        else
+            it++;
+    }
+    if(found){
+        it->setTagTask(taskTag);
+    } else
+        std::cout<<"There is no such task in this list!";
+
+}
+
+void TaskList::changeDateOfTask(string taskName, Date d) {
+    bool  found= false;
+    auto it = taskList.begin();
+
+    while (it != taskList.end() && !found)
+    {
+        if(it->getNameOfTask()==taskName)
+            found= true;
+        else
+            it++;
+    }
+    if(found){
+        it->setDateOfTask(d);
+    } else
+        std::cout<<"There is no such task in this list!";
 
 
+}
 

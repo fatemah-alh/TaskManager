@@ -13,19 +13,18 @@ private:
    //TaskList taskList;
    std::list<Task> list;
 public:
-    ListView(TaskList taskList1){
+    explicit ListView(TaskList &taskList1){
 
        list=taskList1.getTaskList();
     }
-    void printList();// print name of task, and date in one list
-
-    void printListByTag(Tag tag);
-
+    std::string printList();
+    std::string printListByTag(Tag tag);
+    std::string printListByDay(int d);
+    std::string printListByMonth(int m);
+    std::string printListByYear(int y);
+    std::string printListByName(string taskName );
     void printListByColor(Color color);
     void printListByDate(Date date);
-    void printListByDay(int d);
-    void printListByMonth(int m);
-    void printListByYear(int y);
 
     //ByMontheAndYear, ByDayAndMonth
 

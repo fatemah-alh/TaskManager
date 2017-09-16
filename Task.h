@@ -13,7 +13,6 @@ using std::string;
 class Task {
 private:
     string nameOfTask;
-    bool done;
     Date dateOfTask;
     Color colorOfTask;
     Tag tagTask;//in future possible be class category
@@ -24,21 +23,19 @@ public:
         // Color c= Color ::rose,Tag tag=Tag::life,bool done= false
         colorOfTask= Color ::Pink;
         tagTask=Tag::life;
-        done= false;
     };
     explicit Task(Date d,string s="New Task"):dateOfTask(d),nameOfTask(s){
         colorOfTask= Color ::Pink;
         tagTask=Tag::life;
-        done= false;
 
 
     };
-    Task(Date d,string s="New Task",Color color=Color ::Pink, Tag tag=Tag::life, bool done=false):dateOfTask(d),nameOfTask(s),colorOfTask(color),tagTask(tag),done(done){};
+    Task(Date d,string s="New Task",Color color=Color ::Pink, Tag tag=Tag::life)
+            :dateOfTask(d),nameOfTask(s),colorOfTask(color),tagTask(tag){};
 
     Task ( int d, int m, int y,string s="New Task"):dateOfTask(d,m,y),nameOfTask(s){
         colorOfTask= Color ::Pink;
         tagTask=Tag::life;
-        done= false;
     };
 
     Task(const Task& t);
@@ -64,13 +61,6 @@ public:
         Task::dateOfTask = dateOfTask;
     }
 
-    bool isDone() const {
-        return done;
-    }
-
-    void setDone(bool done) {
-        Task::done = done;
-    }
     Color getColorOfTask() const {
         return colorOfTask;
     }

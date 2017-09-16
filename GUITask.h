@@ -5,7 +5,6 @@
 #ifndef TASKMANGER_GUITASK_H
 #define TASKMANGER_GUITASK_H
 
-#include "wx/wx.h"
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/string.h>
@@ -20,8 +19,6 @@
 #include <wx/checkbox.h>
 #include <wx/sizer.h>
 #include <wx/dialog.h>
-#include <wx/dateevt.h>
-#include <wx/datectrl.h>
 
 #include "GUIDate.h"
 #include "Date.h"
@@ -42,18 +39,14 @@ protected:
     wxChoice* chooseColor;
     wxStaticText* choose_Tag;
     wxChoice* chooseTag;
-    wxCheckBox* checkDone;
     wxStaticText* space;
     wxButton* ok;
     wxButton* cancel;
-    wxDatePickerCtrl* datePicker;
 
     wxString guiNameTask;
     wxString guiColor;
     wxString guiTag;
     wxString guiSelectedList;
-
-    bool guiDone;
 
     int dayTask;
     int monthTask;
@@ -69,7 +62,7 @@ protected:
     virtual void setDate( wxCommandEvent& event );
     virtual void setColor( wxCommandEvent& event ) ;
     virtual void setTag( wxCommandEvent& event ) ;
-    virtual void setDone( wxCommandEvent& event ) ;
+
 
 public:
 
@@ -109,15 +102,6 @@ public:
         GUITask::guiSelectedList = guiSelectedList;
     }
 
-    bool isGuiDone() const {
-        return guiDone;
-    }
-
-    void setGuiDone(bool guiDone) {
-        GUITask::guiDone = guiDone;
-    }
-
-//
     int getDayTask() const {
         return dayTask;
     }

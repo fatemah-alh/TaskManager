@@ -6,7 +6,6 @@
 
 Task::Task(const Task &t) {
     nameOfTask=t.nameOfTask;
-    done=t.done;
     colorOfTask=Color (t.getColorOfTask());
     tagTask=t.tagTask;
     dateOfTask=Date(t.dateOfTask);
@@ -15,7 +14,6 @@ Task::Task(const Task &t) {
 Task& Task::operator=(const Task &t) {
 
     nameOfTask=t.nameOfTask;
-    done=t.done;
     colorOfTask=t.colorOfTask;
     tagTask=t.tagTask;
     dateOfTask=Date(t.dateOfTask);
@@ -23,7 +21,7 @@ Task& Task::operator=(const Task &t) {
 }
 
 bool Task::operator==(const Task &t) const {
-    if (nameOfTask==t.nameOfTask && done==t.done && dateOfTask==t.dateOfTask
+    if (nameOfTask==t.nameOfTask  && dateOfTask==t.dateOfTask
         && colorOfTask==t.colorOfTask && tagTask==t.tagTask)
         return true;
     else

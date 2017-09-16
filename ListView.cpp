@@ -4,29 +4,47 @@
 
 #include "ListView.h"
 
-void ListView::printList() {
-
+std::string ListView::printList() {
+    std::string s;
     if(!list.empty()){
         for (auto it = list.begin();  it!=list.end() ; ++it) {
-            std::cout<<it->getNameOfTask()<<"\t"<<it->getDateOfTask().getDay()
-                     <<"/"<<it->getDateOfTask().getMonth()<<"/"<<it->getDateOfTask().getYear()<<std::endl;
-
+            string name=it->getNameOfTask();
+            int day=it->getDateOfTask().getDay();
+            int month=it->getDateOfTask().getMonth();
+            int year=it->getDateOfTask().getYear();
+            std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+            s=s+s1;
 
         }
-    }
+        std::cout<<s<<std::endl;
+    } else
+        s="No tasks!\n";
+
+    return s;
 }
 
-void ListView::printListByTag(Tag tag) {
+std::string ListView::printListByTag(Tag tag) {
+    bool result=false;
+    std::string s;
     if (!list.empty()){
         for (auto it = list.begin();  it!=list.end() ; ++it){
             if(it->getTagTask()==tag){
-                std::cout<<it->getNameOfTask()<<"\t"<<it->getDateOfTask().getDay()
-                         <<"/"<<it->getDateOfTask().getMonth()<<"/"<<it->getDateOfTask().getYear()<<std::endl;
-
+                string name=it->getNameOfTask();
+                int day=it->getDateOfTask().getDay();
+                int month=it->getDateOfTask().getMonth();
+                int year=it->getDateOfTask().getYear();
+                std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+                s=s+s1;
+                result= true;
             }
+        }
+        if(!result)
+        {
+            s="";
         }
 
     }
+    return s;
 
 }
 
@@ -57,43 +75,101 @@ void ListView::printListByDate(Date date) {
 
 }
 
-void ListView::printListByDay(int d ){
+std::string ListView::printListByDay(int d ){
+    bool result=false;
+    std::string s;
     if (!list.empty()){
         for (auto it = list.begin();  it!=list.end() ; ++it){
-            if(it->getDateOfTask().getDay()==d){
-                std::cout<<it->getNameOfTask()<<"\t"<<it->getDateOfTask().getDay()
-                         <<"/"<<it->getDateOfTask().getMonth()<<"/"<<it->getDateOfTask().getYear()<<std::endl;
-
+            if(it->getDateOfTask().getDay()==d){string name=it->getNameOfTask();
+                int day=it->getDateOfTask().getDay();
+                int month=it->getDateOfTask().getMonth();
+                int year=it->getDateOfTask().getYear();
+                std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+                s=s+s1;
+            result= true;
             }
+        }
+        if(!result)
+        {
+            s="";
         }
 
     }
+    return s;
 
 }
 
-void ListView::printListByMonth(int m) {
+std::string ListView::printListByMonth(int m) {
+    bool result=false;
+    std::string s;
     if (!list.empty()){
         for (auto it = list.begin();  it!=list.end() ; ++it){
             if(it->getDateOfTask().getMonth()==m){
-                std::cout<<it->getNameOfTask()<<"\t"<<it->getDateOfTask().getDay()
-                         <<"/"<<it->getDateOfTask().getMonth()<<"/"<<it->getDateOfTask().getYear()<<std::endl;
-
+                string name=it->getNameOfTask();
+                int day=it->getDateOfTask().getDay();
+                int month=it->getDateOfTask().getMonth();
+                int year=it->getDateOfTask().getYear();
+                std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+                s=s+s1;
+                result= true;
             }
+        }
+        if(!result)
+        {
+            s="";
         }
 
     }
+    return s;
 
 }
-
-void ListView::printListByYear(int y) {
+std::string ListView::printListByYear(int y) {
+    bool result=false;
+    std::string s;
     if (!list.empty()){
         for (auto it = list.begin();  it!=list.end() ; ++it){
             if(it->getDateOfTask().getYear()==y){
-                std::cout<<it->getNameOfTask()<<"\t"<<it->getDateOfTask().getDay()
-                         <<"/"<<it->getDateOfTask().getMonth()<<"/"<<it->getDateOfTask().getYear()<<std::endl;
-
+                string name=it->getNameOfTask();
+                int day=it->getDateOfTask().getDay();
+                int month=it->getDateOfTask().getMonth();
+                int year=it->getDateOfTask().getYear();
+                std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+                s=s+s1;
+                result= true;
             }
+        }
+        if(!result)
+        {
+            s="";
         }
 
     }
+    return s;
+
+}
+
+
+std::string ListView::printListByName(string taskName ){
+    bool result=false;
+    std::string s;
+    if (!list.empty()){
+        for (auto it = list.begin();  it!=list.end() ; ++it){
+            if(it->getNameOfTask()==taskName){
+                string name=it->getNameOfTask();
+                int day=it->getDateOfTask().getDay();
+                int month=it->getDateOfTask().getMonth();
+                int year=it->getDateOfTask().getYear();
+                std::string s1=name +"\t"+ std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\n";
+                s=s+s1;
+                result= true;
+            }
+        }
+        if(!result)
+        {
+            s="";
+        }
+
+    }
+    return s;
+
 }

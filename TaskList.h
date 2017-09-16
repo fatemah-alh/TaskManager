@@ -15,26 +15,21 @@ private:
     std::list<Task> taskList;
 
 public:
-    TaskList()= default;// how to initializer list//
-    ~TaskList(){
-
-    };
+    TaskList()= default;
+    ~TaskList(){};
 
     void addTask(Task& t);
-
-    void removeTask(Task& t);// remove task from list, need pointer or ref,
-    // trow an execption if task not in taskList!?
-    // it's possible receve name of list
-    // when move task form to-do to other list, use earse element!, it's pointed!
-
-    // void printList();// print namoe of taske in list if there is list
+    void removeTask(Task& t);
     void removeTaskByName(string s);
     void emptyList();
-    TaskList searchTasksByDate(Date d);//throw(std::invalid_argument);// by day,month,year, by name
-
-    //sugg:: board of Task list, possible creare in class board list of Tasklist!
+    TaskList searchTasksByDate(Date d);
     void moveTask(TaskList&l2,Task& t);
     void moveTaskByName(TaskList& l2,string s);
+    void changeNameOfTask(string taskName1,string taskName2);
+    void changeColorOfTask( string taskName, Color taskColor);
+    void changeTagOfTask(string taskName,Tag taskTag);
+    void changeDateOfTask(string taskName,Date d);
+    //
 
     int getSizeList() const {
         return taskList.size();

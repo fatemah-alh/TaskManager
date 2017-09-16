@@ -5,6 +5,7 @@
 #ifndef TASKMANGER_GUITASKMANAGER_H
 #define TASKMANGER_GUITASKMANAGER_H
 
+
 #include <wx/wx.h>
 
 #include <wx/artprov.h>
@@ -59,15 +60,17 @@ protected:
      void emptyList( wxCommandEvent& event );
      void calculatePercent( wxCommandEvent& event ) ;
      void editTask( wxCommandEvent& event );
-     void searchByName( wxCommandEvent& event );
-
-/*
+     void getTodayList(wxCommandEvent& event);
      void searchByDate( wxCommandEvent& event );
+     void searchByDay( wxCommandEvent& event );
+    void searchByMonth( wxCommandEvent& event );
+    void searchByYear( wxCommandEvent& event );
+     void searchByName( wxCommandEvent& event );
+     void searchByTag(wxCommandEvent&event);
 
-     void searchByDay( wxCommandEvent& event ) ;
 
 
-*/
+
 public:
 
     GUITaskManager( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("GUITaskManager"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 789,463 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
