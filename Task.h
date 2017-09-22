@@ -30,9 +30,10 @@ public:
 
 
     };
+    /*
     Task(Date d,string s="New Task",Color color=Color ::Pink, Tag tag=Tag::life)
             :dateOfTask(d),nameOfTask(s),colorOfTask(color),tagTask(tag){};
-
+*/
     Task ( int d, int m, int y,string s="New Task"):dateOfTask(d,m,y),nameOfTask(s){
         colorOfTask= Color ::Pink;
         tagTask=Tag::life;
