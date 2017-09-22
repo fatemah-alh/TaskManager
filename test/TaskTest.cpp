@@ -14,8 +14,8 @@ Date today;
 Tag tag=Tag ::life;
 ASSERT_TRUE(today == t.getDateOfTask());// non work withe ASSERT_EQ becuase they are objects
 ASSERT_EQ("New Task",t.getNameOfTask());
-ASSERT_EQ(false,t.isDone());
-ASSERT_EQ(t.getColorOfTask(),Color::rose);
+
+ASSERT_FALSE(t.getColorOfTask()==Color::Red);
 ASSERT_EQ(tag,t.getTagTask());
 }
 
@@ -37,11 +37,8 @@ ASSERT_EQ(t.getNameOfTask(),"rivesione del codice");
 TEST(Task,setMethods){
 Task t(31,8,2017,"rivesione del codice");
 
-t.setColorOfTask(Color::blue);
-ASSERT_EQ(t.getColorOfTask(),Color::blue);
-
-t.setDone(true);
-ASSERT_TRUE(t.isDone());
+t.setColorOfTask(Color::Blue);
+ASSERT_EQ(t.getColorOfTask(),Color::Blue);
 
 t.setTagTask(Tag::studying);
 ASSERT_EQ(t.getTagTask(),Tag::studying);
@@ -56,7 +53,7 @@ ASSERT_EQ(t.getNameOfTask(),"second visit");
 
 TEST(Task,assignment){
 Task t(31,8,2017,"rivesione del codice");
-t.setColorOfTask(Color::red);
+t.setColorOfTask(Color::Red);
 t.setTagTask(Tag::work);
 Task taskAssignment=t;
 ASSERT_EQ(taskAssignment.getNameOfTask(),t.getNameOfTask());
@@ -64,13 +61,13 @@ Date date=taskAssignment.getDateOfTask();
 ASSERT_TRUE( date== t.getDateOfTask());
 ASSERT_EQ(taskAssignment.getTagTask(),t.getTagTask());
 ASSERT_EQ(taskAssignment.getColorOfTask(),t.getColorOfTask());
-ASSERT_EQ(taskAssignment.isDone(),t.isDone());
+
 
 }
 
 TEST(Task, copyConstructor){
 Task t(31,8,2017,"rivesione del codice");
-t.setColorOfTask(Color::red);
+t.setColorOfTask(Color::Red);
 t.setTagTask(Tag::work);
 Task copyTask(t);
 ASSERT_EQ(copyTask.getNameOfTask(),t.getNameOfTask());
@@ -78,7 +75,6 @@ Date date=copyTask.getDateOfTask();
 ASSERT_TRUE(date==t.getDateOfTask());
 ASSERT_EQ(copyTask.getTagTask(),t.getTagTask());
 ASSERT_EQ(copyTask.getColorOfTask(),t.getColorOfTask());
-ASSERT_EQ(copyTask.isDone(),t.isDone());
 }
 
 TEST(Task,operatorEqual){

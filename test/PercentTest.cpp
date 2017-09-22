@@ -23,9 +23,10 @@ TEST(Percent,calculatPercent){
     TaskList ignored;
     ignored.addTask(t4);
     int total=done.getSizeList()+todo.getSizeList()+ignored.getSizeList();
-Percent myprog(total);
+Percent myprog(todo,done,ignored);
+    myprog.calculatePercent();
     
-    ASSERT_EQ(40,myprog.calculatePercent(todo));
-    ASSERT_EQ(40,myprog.calculatePercent(done));
-    ASSERT_EQ(20,myprog.calculatePercent(ignored));
+    ASSERT_EQ(40,myprog.getToDoPercent());
+    ASSERT_EQ(40,myprog.getDonePercent());
+    ASSERT_EQ(20,myprog.getIgnoredPercent());
 }
